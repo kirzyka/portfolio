@@ -2,32 +2,29 @@ import * as React from 'react';
 import { MouseEvent } from 'react';
 import { ActionCreatorsMapObject, bindActionCreators } from 'redux';
 import { connect, Dispatch } from 'react-redux';
-import { Route } from 'react-router';
-import { ConnectedRouter } from 'connected-react-router';
-import * as css from './App.css';
-import { history } from '@App/store';
+import { Link } from 'react-router-dom';
+
+import * as css from './Home.css';
 import { RootState } from '@App/store/reducers';
 import { counterActions } from '@App/store/actions/counter/counterActions';
-import Home from '@App/components/app/home/Home';
-import About from '@App/components/app/about/About';
 
-interface AppProps {
+interface HomeProps {
 
 }
 
-interface AppProps {
+interface HomeProps {
   counter: Readonly<number>;
   actions: {
     add: (n: number) => void
   };
 }
 
-interface AppState {
+interface HomeState {
 
 }
 
-class App extends React.Component<AppProps, AppState> {
-  public constructor(props: AppProps, context: object) {
+class Home extends React.Component<HomeProps, HomeState> {
+  public constructor(props: HomeProps, context: object) {
     super(props, context);
 
     this.onButtonClick = this.onButtonClick.bind(this);
@@ -39,16 +36,13 @@ class App extends React.Component<AppProps, AppState> {
 
   public render() {
     return (
-      <ConnectedRouter history={history}>
-        <div className={css.App}>
-          <header className={css.appHeader}>            
-            <h1 className={css.appTitle}>Welcome to React</h1>
-          </header>
-            <Route path="/" component={Home} />
-            <Route path="/about" component={About} />
-          
-        </div>
-      </ConnectedRouter>
+    <section className={css.Home}>
+        <h2>Home</h2>
+        <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="about">About</Link></li>
+        </ul>
+    </section>
     );
   }
 }
@@ -65,4 +59,4 @@ function mapDispatchToProps(dispatch: Dispatch<RootState>) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
